@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:image" content="/twittercard.png" />
+  <meta property="twitter:title" content="Accessibilité - Suivre les obligations légales sans efforts" />
+  <meta name="twitter:site" content="@bertrandkeller" />
+  <meta name="twitter:creator" content="@bertrandkeller" />
+
+  <title>Et toi, t’es conforme GreenIT&nbsp;? | DevFest Dijon - 8 Décembre 2023</title>
+
+  <link rel="stylesheet" href="dist/reset.css">
+  <link rel="stylesheet" href="dist/reveal.css">
+  <link rel="stylesheet" href="dist/theme/black.css">
+
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="plugin/highlight/monokai.css">
+  <style>
+    .slides :not(.pdf-page) section {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center !important;
+      justify-content: center !important;
+      height: 100% !important;
+      top: 0 !important;
+    }
+
+    .print-pdf .container {
+      height: auto !important;
+    }
+
+    .print-pdf .containers {
+      width: auto !important;
+    }
+
+    .container {
+      top: 0 !important;
+      height: 100vh !important;
+    }
+
+    .containers {
+      position: relative;
+      display: flex;
+      width: 100vw;
+      height: 100vh !important;
+    }
+
+    section:has(.fixed) {
+      display: flex !important;
+      position: initial !important;
+    }
+
+    .flex {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flex-column {
+        flex-direction: column;
+    }
+
+    h1,h2 {
+      color: #9485fc;
+    }
+
+    .reveal h2 {
+      margin: auto;
+      max-width: 80vw;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    h2, strong {
+      color: #20fc23;
+    }
+
+    .small {
+      font-size: 65%;
+    }
+
+    .reveal h3 + p:has(small){
+      margin-top: -0.5em;
+    }
+
+    .reveal p {
+      max-width: 80%;
+      margin: var(--r-block-margin) auto;
+    }
+
+    .print-pdf .container.present {
+      left: 0 !important;
+      width: 100% !important;
+    }
+
+    .flex>* {
+      padding: 1.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fixed {
+      position: fixed;
+      top: 0px;
+      width: 100%;
+    }
+
+    svg {
+      display: inline-block;
+      max-width: 90%;
+      max-height: 100% height: auto;
+      fill: currentColor;
+      vertical-align: baseline
+    }
+
+    .deck2 {
+      display: none;
+    }
+
+    .col {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      background: #4631d4;
+    }
+
+    .col1 {
+      background: #4631d4;
+    }
+
+    .col2 {
+      color: #000;
+      background: #fff;
+    }
+
+    .absolute {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      transform: none !important;
+    }
+
+    .elm {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .elm :has(.current-fragment) {
+      transform: scale(2);
+    }
+
+    .box {
+      flex-direction: column;
+      padding: 0.5em 1.5em 0.3em;
+      background: rgba(75,150,76, 1);
+      width: 150px;
+      margin: 10px;
+    }
+
+    .bgv {
+      background: #9485fc;
+    }
+
+    .box-v {
+      font-size: 1em;
+      //margin: 0 0 -3em;
+      padding: 1em 0.5em;
+      width: 40vw;
+      //height: 3.5em;
+      //box-shadow: rgba(255, 255, 255, 0.12) 1px 1px 10px;
+      //transform: skewX(-53deg) skewY(-12deg) rotateX(48deg) rotateY(22deg);
+      //transform: skewX(328deg) skewY(359deg) rotateX(67deg) rotateY(4deg);
+    }
+
+    .vs {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      display: grid;
+      align-items: center;
+      font-size: 1.5em;
+      font-family: Monaco;
+    }
+
+    .vs p {
+      position: relative;
+      margin-inline: auto;
+      display: inline;
+      width: max-content;
+      padding: 5px 10px;
+      z-index: 0;
+    }
+
+    .vs p:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #fff 0%, #fff 49.8%, rgba(0, 0, 0, 1) 49.8%);
+      z-index: -1;
+    }
+
+    .text-left {
+      text-align: left;
+    }
+
+    .text-white {
+      color: #fff;
+    }
+
+    .text-black {
+      color: #000;
+    }
+
+    .ml1 {
+      margin-left: 0.1em;
+    }
+
+    .mr1 {
+      margin-right: 0.08em;
+    }
+
+    p.m0 {
+      margin: 0;
+    }
+
+    p.mb1 {
+      margin-bottom: 0.1;
+    }
+
+    .strong {
+      font-weight: 600;
+    }
+
+    ul.cloud {
+      list-style: none;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      line-height: 6.75rem;
+      width: 80%;
+    }
+
+    ul.cloud li {
+      --size: 4;
+      --color: #a33;
+      color: var(--color);
+      font-size: calc(var(--size) * 0.25rem * 4 + 0.5rem);
+      font-weight: bold;
+      display: block;
+      padding: 0.125rem 0.25rem;
+      position: relative;
+      text-decoration: none;
+    }
+
+    ul.cloud [data-weight="1"] { --size: 1; }
+    ul.cloud [data-weight="2"] { --size: 2; }
+    ul.cloud [data-weight="3"] { --size: 3; }
+    ul.cloud [data-weight="4"] { --size: 4; }
+    ul.cloud [data-weight="5"] { --size: 6; }
+    ul.cloud [data-weight="6"] { --size: 8; }
+    ul.cloud [data-weight="7"] { --size: 10; }
+    ul.cloud [data-weight="8"] { --size: 13; }
+    ul.cloud [data-weight="9"] { --size: 16; }
+
+    ul.cloud li:nth-child(2n+1) { --color: #9485fc; }
+    ul.cloud li:nth-child(3n+1) { --color: #20fc23; }
+    ul.cloud li:nth-child(4n+1) { --color: #f362b3; }
+
+    .reveal :has(.stamp) {
+      margin: 0;
+    }
+
+    .stamp {
+      transform: rotate(12deg);
+      color: #555;
+      font-size: 3rem;
+      font-weight: 700;
+      border: 0.25rem solid #555;
+      display: inline-block;
+      padding: 0.25rem 1rem;
+      text-transform: uppercase;
+      border-radius: 1rem;
+      font-family: 'Courier';
+      -webkit-mask-image: url('/assets/grunge.png');
+      -webkit-mask-size: 944px 604px;
+      mix-blend-mode: multiply;
+      font-size: 1.5rem;
+      position: absolute;
+      background: #000;
+    }
+
+    .is-nope {
+      color: #D23;
+      border: 0.5rem double #D23;
+      transform: rotate(3deg) scale(8);
+      -webkit-mask-position: 2rem 3rem;
+    }
+
+    .is-nope.visible {
+      transform: rotate(-14deg);
+    }
+
+    .is-approved {
+      color: #0A9928;
+      border: 0.5rem solid #0A9928;
+      -webkit-mask-position: 13rem 6rem;
+      transform: rotate(-14deg) scale(8);
+      border-radius: 0;
+    }
+
+    .is-approved.visible {
+      transform: rotate(14deg);
+    }
+
+    .is-left {
+      top: -6rem;
+      left: 5vw;
+    }
+
+    .is-right {
+      top: -6rem;
+      right: 5vw;
+    }
+
+    .is-center {
+      top: -6rem;
+      left: 32vw;
+    }
+
+    .is-value is-left {
+      color: #fce385;
+      border-color: #fce385;
+    }
+
+    .is-finality is-right {
+      color: #9485fc;
+      border-color: #9485fc;
+    }
+
+    .is-draft {
+      color: #C4C4C4;
+      border: 1rem double #C4C4C4;
+      transform: rotate(-5deg);
+      font-family: "Open sans", Helvetica, Arial, sans-serif;
+      border-radius: 0;
+      padding: 0.5rem;
+    }
+
+    //.stamp {
+    //  -webkit-animation-name: pulse;
+    //  animation-name: pulse;
+    //  animation-delay: 2.5s;
+    //  -webkit-animation-delay:2.5s;
+    //  -webkit-animation-duration: 0.5s;
+    //  animation-duration: 0.5s;
+    //  opacity: 0;
+    //}
+//
+    //@keyframes pulse {
+    //  0% {
+    //    opacity: 0;
+    //  }
+//
+    //  10% {
+    //    opacity:.50;
+    //    transform-origin: 50% 50%;
+    //    transform: rotate(-2deg) scale(5);
+    //    transition: all .3s cubic-bezier(0.6, 0.04, 0.98, 0.335);
+    //  }
+//
+    //  100% {
+    //    opacity: 1;
+    //    transform: rotate(-15deg) scale(1);
+    //  }
+    //}
+
+    .reveal ol {
+      counter-reset: index;
+      list-style-type: none;
+    }
+
+    ol li::before {
+      counter-increment: index;
+      font-family: Helvetica;
+      content: counters(index, '.', decimal) '. ';
+    }
+
+    .tree ul {
+      margin: 0 !important;
+      padding-top: 20px;
+      position: relative;
+
+      transition: all 0.5s;
+      -webkit-transition: all 0.5s;
+      -moz-transition: all 0.5s;
+    }
+
+    .tree li {
+      float: left;
+      text-align: center;
+      list-style-type: none;
+      position: relative;
+      padding: 10px 5px 0 5px;
+
+      transition: all 0.5s;
+      -webkit-transition: all 0.5s;
+      -moz-transition: all 0.5s;
+    }
+
+    .tree li::before,
+    .tree li::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 50%;
+      border-top: 2px solid #ccc;
+      width: 50%;
+      height: 20px;
+    }
+
+    .tree li::after {
+      right: auto;
+      left: 50%;
+      border-left: 2px solid #ccc;
+    }
+
+    .tree li:only-child::after,
+    .tree li:only-child::before {
+      display: none;
+    }
+
+    .tree li:only-child {
+      padding-top: 0;
+    }
+
+    .tree li:first-child::before,
+    .tree li:last-child::after {
+      border: 0 none;
+    }
+
+    .tree li:last-child::before {
+      border-right: 2px solid #ccc;
+      border-radius: 0 5px 0 0;
+      -webkit-border-radius: 0 5px 0 0;
+      -moz-border-radius: 0 5px 0 0;
+    }
+
+    .tree li:first-child::after {
+      border-radius: 5px 0 0 0;
+      -webkit-border-radius: 5px 0 0 0;
+      -moz-border-radius: 5px 0 0 0;
+    }
+
+    .tree ul ul::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      border-left: 2px solid #ccc;
+      width: 0;
+      height: 20px;
+    }
+
+    .tree ul ul ul::before {
+      height: 35px;
+    }
+
+    .tree li a {
+      border: 2px solid #fff;
+      margin-top: 10px;
+      padding: 20px 20px 12px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 0.8em;
+      display: inline-block;
+
+      transition: all 0.5s;
+      -webkit-transition: all 0.5s;
+      -moz-transition: all 0.5s;
+    }
+
+    /*Time for some hover effects*/
+    /*We will apply the hover effect the the lineage of the element also*/
+    .tree li a:hover,
+    .tree li a:hover+ul li a {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #94a0b4;
+    }
+
+    /*Connector styles on hover*/
+    .tree li a:hover+ul li::after,
+    .tree li a:hover+ul li::before,
+    .tree li a:hover+ul::before,
+    .tree li a:hover+ul ul::before {
+      border-color: #94a0b4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal deck1">
+    <div class="slides absolute">
+      <section data-transition="none">
+        <h1>Et toi, t’es conforme <strong>GreenIT</strong>&nbsp;?</h1>
+      </section>
+      <section data-transition="none" data-background="#111">
+        <ul class="cloud" role="navigation" aria-label="Référentiel GreenIT">
+          <li data-weight="2">74 bonnes pratiques du GreenIT</li>
+          <li data-weight="6">GR491</li>
+          <li data-weight="2">RGAA</li>
+          <li data-weight="4">Critères IT du CIGREF</li>
+          <li data-weight="6">RGESN</li>
+          <li data-weight="3">Loi AGEC</li>
+          <li data-weight="4">WSG</li>
+          <li data-weight="5">Loi REEN</li>
+        </ul>
+      </section>
+      <!-- .slide: data-background="#4631d4" -->
+      <section data-markdown data-transition="none">
+          <textarea data-template>
+            ## Le cadre
+            ---
+            > De toute façon dans ma boîte… C’est pas possible&nbsp;!
+          </textarea>
+      </section>
+      <section data-markdown data-transition="none">
+        <textarea data-template>
+          ### La contrainte légale
+          ---
+          ### 🤔
+          ---
+          <br>
+
+          ### A world of Accronymes
+          <p class="small text-left fragment"><strong>COTRI</strong> : Contrat d’Objectifs Territorial pour l’accélération de la  Troisième Révolution Industrielle</p>
+          <p class="small text-left fragment"><strong>EPCI</strong> : Etablissement Public de Coopération Intercommunale</p>
+          <p class="small text-left fragment"><strong>PAT</strong> : Projet Alimentaire Territorial</p>
+          <p class="small text-left fragment"><strong>PCAET</strong> : Plan Climat Air Energie Territorial</p>
+          <p class="small text-left fragment"><strong>PLU</strong> : Plan Local d’Urbanisme</p>
+          <p class="small text-left fragment"><strong>PNR</strong> : Parc Naturel Régional</p>
+          <p class="small text-left fragment"><strong>SCOT</strong> : Schéma de COhérence Territorial</p>
+          <p class="small text-left fragment"><strong>SNBC</strong> : Stratégie Nationale Bas Carbone</p>
+          <p class="small text-left fragment"><strong>SRADDET</strong> : Schéma Régional d’Aménagement, de Développement Durable et d’Egalité des Territoires</p>
+          <p class="small text-left fragment"><strong>SRGS</strong> : Schéma Régional de Gestion Sylvicole</p>
+          ---
+          ### Rationalité en Finalité
+          > "Par l’action rationnelle en finalité, l’individu conçoit un but et recherche ensuite les moyens permettant de l’atteindre."<br>
+            **Max Weber**
+          ---
+          ### Rationalité en Valeurs
+          > "Repose sur l’adéquation entre l'acte de l’individu et les valeurs auxquelles il adhère."<br>
+            **Max Weber**
+          ---
+          ### Consultation DGCCRF
+          > "Consommation plus durable, mais sans toucher à la liberté de consommation"<br>
+            **Olivia Grégoire**
+          ---
+          ## Lois
+          ---
+          ### REEN
+          <small>15 novembre 2021</small><br>
+          > Réduire l’Empreinte Environnementale du Numérique
+          ---
+          ### AGEC
+          <small>10 février 2020</small><br>
+          > Anti-Gaspillage pour une Économie Circulaire
+          ---
+          ### Loi handicap
+          <small>11 février 2005</small><br>
+
+          Nouveau décret d’application du 24 juillet 2019  <!-- .element: class="fragment" -->
+
+          Respect de la Directive Européenne EN 301 549  <!-- .element: class="fragment" -->
+          ---
+          ## Référentiels
+          ---
+          ### GR491
+          <small>Institut National du Numérique</small><br>
+          Le <strong>G</strong>uide de <strong>R</strong>éférence de Conception Responsable
+
+          _**516** critères_ <!-- .element: class="fragment" -->
+          ---
+          ### Critères IT du CIGREF
+          <small>Club informatique des grandes entreprises françaises</small><br>
+          Critères de décision RSE à intégrer dans le processus d’engagement des projets IT
+          ---
+          ### 74 bonnes pratiques du GreenIT
+          <small>💚 Association GreenIT.fr 💚</small><br>
+          Réduire l’empreinte environnementale et économique d’un système d’information tout en améliorant sa performance sociale.</small>
+
+          <small>+</small> <!-- .element: class="fragment" -->
+          <small>**115** bonnes pratiques du **N**umérique **R**esponsable.</small> <!-- .element: class="fragment" -->
+          ---
+          ### RGESN
+          <small>DINUM - INR - ADEME - Ministère de la Transition Écologique - ARCEP - INRIA </small>
+
+          <strong>R</strong>éférentiel <strong>G</strong>énéral d’<strong>É</strong>coconception de <strong>S</strong>ervices <strong>N</strong>umériques
+          ---
+          ### RGAA
+
+          <strong>R</strong>éférentiel <strong>G</strong>énéral d’<strong>A</strong>mélioration de l’<strong>A</strong>ccessibilité
+
+          <small>+</small> <!-- .element: class="fragment" -->
+
+          <small>RGS pour la Sécurité, RGI pour l’interopérabilité, RGPD pour la protection des données personnelles et le R2GA pour la gestion des archives.</small> <!-- .element: class="fragment" -->
+          ---
+          ## Finalité ou Valeur
+          ---
+          ### GR491
+          <p class="small text-left fragment"><strong>#11</strong> - Le besoin couvert par le service numérique s’inscrit-il dans l’un des objectifs de développement durable&nbsp?</p>
+          <p class="small text-left fragment"><strong>#35</strong> - Les outils intégrés (CMS, frameworks, ...), ou les développements internes, apportent-ils des éléments positifs vis à vis de la démarche NR&nbsp?</p>
+          <p class="small text-left fragment"><strong>#82</strong> - Est-ce que tous les collaborateurs du prestataire disposent de conditions sociales et salariales équivalentes à celles du client du datacenter&nbsp?</p>
+          <span class="stamp is-approved is-finality is-right fragment zoom-out">Finalité</span>
+          ---
+          ### Critères IT du CIGREF
+          <p class="small text-left fragment"><strong>#124</strong> - Le projet privilégie le choix d’offres de solutions ou services numériques répondant à des critères responsables reconnus</p>
+          <p class="small text-left fragment"><strong>#213</strong> - Le projet intègre les enjeux de droit à la déconnexion (paramétrage notifications, …)</p>
+          <p class="small text-left fragment"><strong>#221</strong> - Le projet se conforme à la réglementation de mise en accessibilité en se basant sur les principes du RGAA tout au long du projet (conception/cadrage, design, intégration CSS/HTML, éditorial, etc.)</p>
+
+          <span class="stamp is-approved is-finality is-right fragment zoom-out">Finalité</span>
+          ---
+          ### 74 bonnes pratiques du GreenIT
+          <p class="small text-left fragment"><strong>#621</strong> - Intégrer les bonnes pratiques d’écoconception et d’accessibilité lors d’achat de prestations externes</p>
+          <p class="small text-left fragment"><strong>#628</strong> - Systématiser la revue de code en sortie de développements</p>
+          <p class="small text-left fragment"><strong>#904</strong> - Communiquer auprès des utilisateurs et les former sur les bonnes pratiques Green IT</p>
+          <span class="stamp is-approved is-finality is-right fragment zoom-out">Finalité</span>
+          ---
+          ### RGESN
+          <p class="small text-left fragment"><strong>#1.1</strong> - Le service numérique a-t-il été évalué favorablement en termes d’utilité en tenant compte de ses impacts environnementaux&nbsp?</p>
+          <p class="small text-left fragment"><strong>#1.5</strong> - Le service numérique est-il utilisable sur des terminaux âgés de 5 ans ou plus&nbsp?</p>
+          <p class="small text-left fragment"><strong>#4.9</strong> - Le service numérique permet-il de mettre en pause les animations, défilement ou clignotement&nbsp?</p>
+          <p class="small text-left fragment"><strong>#6.1</strong> - Le service numérique s’astreint-il à un poids maximum par écran&nbsp?</p>
+          <span class="stamp is-nope is-value is-left fragment zoom-out">Valeur ?</span>
+          <span class="stamp is-draft is-left fragment zoom-out">Déclaration explicative !</span>
+          ---
+          ### RGAA
+          <p class="small text-left fragment"><strong>#1.3</strong> - Pour chaque image porteuse d’information ayant une alternative textuelle, cette alternative est-elle pertinente (hors cas particuliers)&nbsp?</p>
+          <p class="small text-left fragment"><strong>#11.10</strong> - Dans chaque formulaire, le contrôle de saisie est-il utilisé de manière pertinente (hors cas particuliers)&nbsp?</p>
+          <p class="small text-left fragment"><strong>#13.12</strong> - Dans chaque page web, les fonctionnalités qui impliquent un mouvement de l’appareil ou vers l’appareil peuvent-elles être satisfaites de manière alternative (hors cas particuliers)&nbsp?</p>
+          <span class="stamp is-approved is-finality is-right fragment zoom-out">Finalité</span>
+          <span class="stamp is-draft is-left fragment zoom-out">Schéma pluriannuel</span>
+          <span class="stamp is-draft is-center fragment zoom-out">Plan d’action</span>
+          ---
+          ## Conformité
+          ---
+          ### Le processus
+          1. Inventaire <!-- .element: class="fragment" -->
+          2. Collecte <!-- .element: class="fragment" -->
+          3. Déclaration <!-- .element: class="fragment" -->
+          ---
+          ### Rôle du référent
+          1. Conformité <!-- .element: class="fragment" -->
+          2. Formation <!-- .element: class="fragment" -->
+          3. Culture <!-- .element: class="fragment" -->
+          </textarea>
+        </section>
+        <!-- <section data-auto-animate data-transition="none">
+          <h3>Les Fondamentaux</h3>
+          <div class="flex flex-column">
+            <div data-id="box1" class="box box-v fragment" data-fragment-index="3">
+              Culture
+            </div>
+            <div data-id="box1" class="box box-v fragment" data-fragment-index="2">
+              Formation
+            </div>
+            <div data-id="box1" class="box box-v fragment" data-fragment-index="1">
+              Conformité
+            </div>
+          </div>
+        </section>  -->
+        <section data-markdown data-transition="none">
+          <textarea data-template>
+            ## L’💡 derrière tous ça ?
+            ---
+            ### Analyse de Cycle de Vie
+            > Quantifier les impacts environnementaux d’un service, dans un objectif d’éco-conception…
+          </textarea>
+        </section>
+        <section data-transition="fade" data-background-image="/assets/Cycle-de-vie-dun-service-numerique-Marie-Chevallier-2021.pbm" data-background="#fff" data-background-size="66%"></section>
+        <section data-markdown data-transition="none">
+          <textarea data-template>
+            ### Analyse de Cycle de Vie
+            <span class="fragment">MULTI-CRITÈRES</span>
+            <span class="fragment">NUMÉRIQUE</span><br>
+            <span class="fragment"><strong>16</strong> indicateurs que personne ne peut citer</span><br>
+            <span class="fragment">C’est Beau, Hein, C’est Français !<br></span>
+            <span class="fragment">C’est unique au monde !</span>
+            ---
+            ## Application
+          </textarea>
+        </section>
+        <section data-transition="none">
+          <h3>Organisme</h3>
+          <div class="flex fragment">
+            <div data-id="box2" class="box bgv fragment">
+              ÉTAT
+            </div>
+            <div data-id="box2" class="box bgv fragment">
+              CDC
+            </div>
+          </div>
+          <div class="tree fragment">
+            <ul>
+              <li>
+                <a href="#">Groupe La poste</a>
+                <ul class="fragment">
+                  <li>
+                    <a href="#">Banque Postale</a>
+                  </li>
+                  <li>
+                    <a href="#">Courrier Express</a>
+                  </li>
+                  <li>
+                    <a href="#">Solipost</a>
+                    <ul class="fragment">
+                      <li>
+                        <a href="#">Docapost</a>
+                      </li>
+                      <li>
+                        <a href="#">Mediapost</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section data-markdown data-transition="none">
+          <textarea data-template>
+            ### Service numérique
+            <br>
+            <p>Ensemble de ressources humaines, logicielles et matérielles nécessaires à la mise à disposition d’un service.</p>
+            <p class="small text-left fragment"><strong>1</strong>. Équipements permettant de stocker, manipuler, afficher des octets ;</p>
+            <p class="small text-left fragment"><strong>2</strong>. Infrastructures qui hébergent et relient les équipements ;</p>
+            <p class="small text-left fragment"><strong>3</strong>. Logiciels empilés les uns sur les autres, qui s’exécutent au-dessus des équipements ;</p>
+            <p class="small text-left fragment"><strong>4</strong>. Autres services numériques tiers éventuels.</p>
+            ---
+            ### Service **ou** Organisme
+            ---
+            Les données bancaires mémorisées par le site peuvent être modifiées ou supprimées.
+
+            <span class="stamp is-approved is-finality is-right fragment zoom-out">Services</span>
+            ---
+            Dédier un budget spécifique au Green IT
+
+            <span class="stamp is-draft is-left fragment zoom-out">Organisme</span>
+            ---
+            Le focus clavier n’est ni supprimé ni masqué.
+
+            <span class="stamp is-approved is-finality is-right fragment zoom-out">Services</span>
+            ---
+            Définit les besoins métiers et les attentes réelles des utilisateurs cibles ?
+
+            <span class="stamp is-approved is-finality is-right fragment zoom-out">Services</span>
+            ---
+            Intégrer les enjeux de droit à la déconnexion (paramétrage notifications, …) ?
+
+            <span class="stamp is-draft is-left fragment zoom-out">Organisme ?</span>
+            <span class="stamp is-approved is-finality is-right fragment zoom-out">Services</span>
+            ---
+            Clauses contractuelles RSE concernant les achats responsables et/ou solidaires notamment pour connaître les émissions de ses fournisseurs et sous-traitants ?
+
+            <span class="stamp is-approved is-finality is-right fragment zoom-out">Services</span>
+            <span class="stamp is-draft is-left fragment zoom-out">Organisme</span>
+            <span class="stamp is-nope is-value is-center fragment zoom-out">Projet ?</span>
+            ---
+            Les vidéos sont déclenchées par l’utilisateur.
+
+            <span class="stamp is-approved is-finality is-right fragment zoom-out">Services</span>
+            ---
+            Favoriser la remise en état du matériel fonctionnel via une entreprise de l’économie sociale et solidaire ou de l’économie adaptée ?
+
+            <span class="stamp is-draft is-left fragment zoom-out">Organisme</span>
+            ---
+            Les codes des plateformes, de réseaux sociaux, sont respectés
+
+            <span class="stamp is-draft is-left fragment zoom-out">Organisme ?</span>
+            <span class="stamp is-approved is-finality is-right fragment zoom-out">Services</span>
+            ---
+            Le service numérique utilise-t-il un hébergement dont la consommation d’électricité est majoritairement d’origine renouvelable ?
+
+            <span class="stamp is-draft is-left fragment zoom-out">Organisme ?</span>
+            <span class="stamp is-approved is-finality is-right fragment zoom-out">Services ?</span>
+            ---
+            ## Que faire ?
+            ---
+            ### Approche par la compétence&nbsp;!
+            1. Je suis un rédacteur ?
+            1. Je suis un développeur ?
+            1. Je suis un responsable RSE ?
+            1. Je suis un Acheteur ?
+            1. Je suis un Sysadmin ?
+            1. Je suis malvoyant ?
+            ---
+            Faites des 💋 !
+          </textarea>
+        </section>
+        <!-- <section data-transition="fade" data-background-image="/assets/Frago-organisme-seul.png" data-background="#fff" data-background-size="56%"></section> -->
+        <!-- <section data-transition="fade" data-background-image="/assets/Frago-organisme-direction.png" data-background="#fff" data-background-size="100%"></section> -->
+        <section data-markdown data-transition="none">
+          <textarea data-template>
+            ## Je commence par quoi ?
+          </textarea>
+        </section>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script src="dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script>
+    let deck1 = new Reveal(document.querySelector('.deck1'), {
+      controls: false,
+      hash: true,
+      progress: false,
+      backgroundTransition: 'none',
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+    deck1.on('slidechanged', () => {
+      console.log('Deck 1 slide changed');
+    });
+    deck1.initialize();
+
+  </script>
+</body>
+
+</html>

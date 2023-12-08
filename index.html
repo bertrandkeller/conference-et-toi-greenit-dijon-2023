@@ -80,6 +80,10 @@
       color: #20fc23;
     }
 
+    .strong {
+      color: #9485fc;
+    }
+
     .small {
       font-size: 65%;
     }
@@ -149,12 +153,23 @@
       transform: none !important;
     }
 
+    .invisible {
+      visibility: hidden;
+    }
+
     .fragment-smaller.visible ~ * {
       font-size: 0.3em;
     }
 
     .fragment-smallerer.visible ~ * {
       font-size: 0.2em;
+    }
+
+    .caption {
+      position: absolute;
+      left: 1rem;
+      bottom: -100vh;
+      font-size: 30px;
     }
 
     .elm {
@@ -179,10 +194,6 @@
       margin: 10px;
     }
 
-    .bgv {
-      background: #9485fc;
-    }
-
     .box-v {
       font-size: 1em;
       //margin: 0 0 -3em;
@@ -192,6 +203,10 @@
       //box-shadow: rgba(255, 255, 255, 0.12) 1px 1px 10px;
       //transform: skewX(-53deg) skewY(-12deg) rotateX(48deg) rotateY(22deg);
       //transform: skewX(328deg) skewY(359deg) rotateX(67deg) rotateY(4deg);
+    }
+
+    .bgv {
+      background: #4631d4;
     }
 
     .vs {
@@ -310,7 +325,7 @@
       text-transform: uppercase;
       border-radius: 1rem;
       font-family: 'Courier';
-      -webkit-mask-image: url('https://bertrandkeller.github.io/conference-et-toi-greenit-dijon-2023/assets/grunge.png');
+      -webkit-mask-image: url('assets/grunge.png');
       -webkit-mask-size: 944px 604px;
       mix-blend-mode: multiply;
       font-size: 1.5rem;
@@ -552,9 +567,9 @@
       <!-- .slide: data-background="#4631d4" -->
       <section data-markdown data-transition="none">
           <textarea data-template>
-            ## Le cadre
-            ---
             > De toute façon dans ma boîte… C’est pas possible&nbsp;!
+            ---
+            ## Le cadre
           </textarea>
       </section>
       <section data-markdown data-transition="none">
@@ -586,7 +601,7 @@
           <p class="small text-left fragment" data-fragment-index="9"><strong>SRADDET</strong> : Schéma Régional d’Aménagement, de Développement Durable et d’Egalité des Territoires</p>
           <p class="small text-left fragment" data-fragment-index="10"><strong>SRGS</strong> : Schéma Régional de Gestion Sylvicole</p>
           <p class="small text-left fragment" data-fragment-index="12"><strong>SDAGE</strong> : Schéma Directeur d’Aménagement et de Gestion des Eaux</p>
-          <p class="small text-left fragment" data-fragment-index="13"><strong>HNCE</strong> : Haut comité pour le numérique écoresponsable</p>
+          <p class="small text-left fragment" data-fragment-index="13"><strong>HCNE</strong> : Haut Comité pour le Numérique Écoresponsable</p>
           <p class="small text-left fragment" data-fragment-index="14"><strong>CDPENAF</strong> : Commission Départementale de Préservation des Espaces Naturels Agricoles et Forestiers</p>
           <p class="small text-left fragment" data-fragment-index="15"><strong>SNAP</strong> : Stratégie Nationale pour les Aires Protégées</p>
           <p class="small text-left fragment" data-fragment-index="16"><strong>OFB</strong> : Office National de Biodiversité</p>
@@ -658,9 +673,9 @@
 
           <small>+</small> <!-- .element: class="fragment" -->
 
-          <small>RGS pour la Sécurité, RGI pour l’interopérabilité, RGPD pour la protection des données personnelles et le R2GA pour la gestion des archives.</small> <!-- .element: class="fragment" -->
+          <small>**RGS** pour la Sécurité, **RGI** pour l’interopérabilité, **RGPD** pour la protection des données personnelles et le **R2GA** pour la gestion des archives.</small> <!-- .element: class="fragment" -->
           ---
-          ## Finalité ou Valeur
+          ## <span class="strong">Quizz :</span><br>Finalité ou Valeur ?
           ---
           ### GR491
           <p class="small text-left fragment"><strong>#11</strong> - Le besoin couvert par le service numérique s’inscrit-il dans l’un des objectifs de développement durable&nbsp?</p>
@@ -712,17 +727,22 @@
             > Quantifier les impacts environnementaux d’un service, dans un objectif d’éco-conception…
           </textarea>
         </section>
-        <section data-transition="fade" data-background-image="assets/Cycle-de-vie-dun-service-numerique-Marie-Chevallier-2021.pbm" data-background="#fff" data-background-size="66%"></section>
+        <section data-transition="fade" data-background-image="assets/Cycle-de-vie-dun-service-numerique-Marie-Chevallier-2021.pbm" data-background="#fff" data-background-size="66%">
+          <p class="caption">Marie Chevallier 2021</p>
+        </section>
+        <section data-transition="fade" data-background-image="assets/cycle-de-vie-numerique-1024x538.jpg" data-background="#fff" data-background-size="86%">
+        <p class="caption">Julie Landais</p>
+        </section>
         <section data-markdown data-transition="none">
           <textarea data-template>
             ### Analyse de Cycle de Vie
-            <span class="fragment">MULTI-CRITÈRES</span>
-            <span class="fragment">NUMÉRIQUE</span><br>
+            <span class="fragment strong">MULTI-CRITÈRES</span> -
+            <span class="fragment strong">NUMÉRIQUE</span><br>
             <span class="fragment"><strong>16</strong> indicateurs que personne ne peut citer</span><br>
-            <span class="fragment">C’est Beau, Hein, C’est Français !<br></span>
+            <span class="fragment">C’est Beau, Hein ! C’est Français !<br></span>
             <span class="fragment">C’est unique au monde !</span>
             ---
-            ## Application
+            ## Le territoire
           </textarea>
         </section>
         <section data-transition="none">
@@ -772,7 +792,7 @@
             <p class="small text-left fragment"><strong>3</strong>. Logiciels empilés les uns sur les autres, qui s’exécutent au-dessus des équipements ;</p>
             <p class="small text-left fragment"><strong>4</strong>. Autres services numériques tiers éventuels.</p>
             ---
-            ### Service **ou** Organisme
+            ## <span class="strong">Quizz :</span> <br>Service **ou** Organisme ?
             ---
             Les données bancaires mémorisées par le site peuvent être modifiées ou supprimées.
 
@@ -820,7 +840,7 @@
             <span class="stamp is-approved is-finality is-right fragment zoom-out">Services ?</span>
             <span class="stamp is-nope is-value is-center fragment zoom-out">Projet ?</span>
             ---
-            ## Passer à une vision organique
+            ## Changer de vision !
             ---
             ### Approche par la compétence&nbsp;!
             1. Je suis un Rédacteur ?
@@ -832,21 +852,22 @@
             1. … <!-- .element: class="fragment" -->
             1. Je suis tout ça en même temps ? <!-- .element: class="fragment" -->
             ---
-            ### Approche 3 axes
+            ### Approche **3** axes
             1. Conformité <!-- .element: class="fragment" -->
             1. Formation <!-- .element: class="fragment" -->
             1. Culture <!-- .element: class="fragment" -->
             ---
             ## La contrainte
             ---
-            ### Perception
-            1. L’attitude « réactive »<br><small>Se limiter au minimum légal</small>
-            1. L’attitude « proactive »<br><small>Revoir ses engagements</small>
+            ### **2** Attitudes<br><small>Possibles</small>
+            1. **Réactive**<br><small>Se limiter au minimum légal</small>
+            1. **Proactive**<br><small>Revoir ses engagements</small>
+            1. sss <!-- .element: class="invisible" --> <br><small>s</small>
             ---
-            ### Attitude
-            1. La « résistance »<br><small>Droit comme pouvoir arbitraire</small>
-            1. Le « jeu »<br><small>Droit sert mes propres intérêts</small>
-            1. La « conformité »<br><small>Droit définit le nécessaire</small>
+            ### **3** Perceptions<br><small>Différentes</small>
+            1. La **Résistance**<br><small>Droit comme pouvoir arbitraire</small>
+            1. Le **Jeu**<br><small>Droit sert mes propres intérêts</small>
+            1. La **Conformité**<br><small>Droit définit le nécessaire à suivre</small>
             ---
             <!-- .slide: data-background="#4631d4" -->
             ### Conclusion
@@ -854,6 +875,7 @@
             Faites des 💋 !
           </textarea>
         </section>
+        <section data-transition="fade" data-background-image="assets/qr-code.png" data-background="#222" data-background-size="30%"></section>
       </div>
     </div>
   </div>
